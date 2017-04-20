@@ -1,0 +1,127 @@
+body 
+  margin: 0
+
+.hidden
+  display: none
+
+.navigation
+  background: #f4f5f6
+  border-bottom: .1rem solid #d1d1d1
+  display: block
+  min-height: 5.2rem
+  left: 0
+  max-width: 100%
+  right: 0
+  top: 0
+  width: 100%
+  z-index: 1
+  margin-bottom: 2rem
+
+.title
+  padding-top: 1.2rem
+  padding-bottom: 1.2rem
+
+ul
+  list-style: none
+
+.section
+  background: #f8f8f8
+  padding: 2rem
+  margin-bottom: 2rem
+
+.section-header
+  display: flex
+  align-items: center
+  justify-content: space-between
+  flex-wrap: wrap
+
+  .actions
+    a
+      margin-left: 1.5rem
+      cursor: pointer
+
+      &:first-child
+        margin-left: 0
+
+.section-title > a
+  font-size: 2.5rem
+  flex-shrink: 0
+  font-weight: bold
+  cursor: pointer
+
+.endpoint
+  margin-top: 1rem
+  margin-bottom: 1rem
+  border-radius: 2px
+  border-width: 1px
+  border-style: solid
+  padding: 0.1rem
+  background: #ffffff
+
+  &:last-child
+    margin-bottom: 0
+
+  &.get
+    border-color: #6bb541
+
+  &.post
+    border-color: #415ab5
+
+  &.put
+    border-color: #b58841
+
+  &.delete
+    border-color: #b54141
+
+  &.get .label
+    background: #6bb541
+
+
+  &.post .label
+    background: #415ab5
+
+
+  &.put .label
+    background: #b58841
+
+  &.delete .label
+    background: #b54141
+
+.description
+  font-size: 1.4rem
+  padding: 2rem 2rem 2rem 6rem
+  overflow: auto
+
+  p
+    margin-bottom: 0
+
+  p + table
+    margin-top: 2.5rem
+
+.address
+  display: flex
+  align-items: center
+  cursor: pointer
+
+.label
+  padding: 0.2rem 0.5rem 0.3rem
+  color: #ffffff
+  border-radius: 2px
+  font-size: 1.2rem
+  width: 5rem
+  text-align: center
+  margin-right: 1rem
+  line-height: 2rem
+
+.url
+  font-size: 1.4rem
+
+@media (max-width: 450px)
+  .section-title 
+    width: 100%
+
+  .section-header
+    .actions
+      a
+        display: block
+        margin-left: 0

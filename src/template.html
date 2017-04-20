@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{title}}</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+  <link rel="stylesheet" href="api-docs-generator.min.css">
+</head>
+<body>
+  <main>
+    <nav class="navigation">
+      <section class="container">
+        <div class="row">
+          <div class="column">
+            <div class="title">{{title}}</div>
+          </div>
+        </div>
+      </section>
+    </nav>
+
+    <section class="container">
+      <div class="row">
+        <div class="column">
+          <div class="sections">
+            <ul>
+              {{#sections}}
+              <li>
+                <a href="#{{name}}">{{name}}</a>
+              </li>
+              {{/sections}}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {{#sections}}
+    <section class="container">
+      <div class="row">
+        <div class="column">
+          <div class="section">
+            <div class="section-header">
+              <div class="section-title">
+                <a name="{{name}}" class="section-toggle">{{name}}</a>
+              </div>
+
+              <div class="actions">
+                <a class="section-toggle">Show/hide</a>
+                <a class="hide-description">List Operations</a>
+                <a class="show-description">Expand Operations</a>
+              </div>
+            </div>
+
+            <div class="endpoints">
+              {{#endpoints}}
+              <div class="endpoint {{type}}">
+                <div class="address toggle-description">
+                  <span class="label">{{type}}</span><span class="url">{{url}}</span>
+                </div>
+
+                <div class="description hidden">
+                  {{{description}}}
+
+                  {{#if parameters}}
+                  <table>
+                    <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Type</th>
+                      <th>Required</th>
+                      <th>Format</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each parameters}}
+                    <tr>
+                      <td>{{this.name}}</td>
+                      <td>{{this.type}}</td>
+                      <td>{{this.required}}</td>
+                      <td>{{this.format}}</td>
+                    </tr>
+                    {{/each}}
+                    </tbody>
+                  </table>
+                  {{/if}}
+                </div>
+              </div>
+              {{/endpoints}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    {{/sections}}
+  </main>
+  <script type="text/javascript" src="api-docs-generator.min.js"></script>
+</body>
+</html>
