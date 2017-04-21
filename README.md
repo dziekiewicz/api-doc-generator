@@ -5,7 +5,7 @@ Installation
 
 You can install by either running the following command:
 
-    npm install api-docs-generator
+    npm install api-doc-generator
 
 Or adding the appropriate line to your `package.json` file.
 

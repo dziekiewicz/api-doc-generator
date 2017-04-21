@@ -86,7 +86,7 @@ function copyAssets(options) {
   fse.copy(__dirname + '/dist', options.output);
 }
 
-function apiDocsGenerator(options) {
+function apiDocGenerator(options) {
   var file = readFiles(options);
   var comments = parseComments(file);
   var sections = groupComments(comments);
@@ -95,4 +95,4 @@ function apiDocsGenerator(options) {
   copyAssets(options);
 }
 
-module.exports = apiDocsGenerator;
+module.exports = apiDocGenerator;

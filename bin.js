@@ -2,7 +2,7 @@
 
 'use strict';
 
-var apiDocsGenerator = require('./');
+var apiDocGenerator = require('./');
 var yargs = require('yargs');
 
 var argv = yargs
@@ -11,7 +11,7 @@ var argv = yargs
   .alias('help', 'h')
   .default('title', '')
   .default('input', 'index.js')
-  .default('output', 'api-docs-generator')
+  .default('output', 'api-doc-generator')
   .options({
     title: {
       description: 'Provide the document title',
@@ -25,4 +25,4 @@ var argv = yargs
   })
   .strict().argv;
 
-apiDocsGenerator(argv);
+apiDocGenerator(argv);

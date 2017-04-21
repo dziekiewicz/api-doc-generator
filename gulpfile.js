@@ -15,11 +15,11 @@ gulp.task('sass', function () {
 
 gulp.task('concat', ['sass'], function() {
   return gulp.src([
-      __dirname + '/tmp/api-docs-generator.css',
+      __dirname + '/tmp/api-doc-generator.css',
       __dirname + '/node_modules/normalize.css/normalize.css',
       __dirname + '/node_modules/milligram/dist/milligram.css'
     ])
-    .pipe(concat('api-docs-generator.min.css'))
+    .pipe(concat('api-doc-generator.min.css'))
     .pipe(cleanCSS())
     .pipe(gulp.dest('dist/'));
 });
