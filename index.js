@@ -21,12 +21,11 @@ function groupComments(comments) {
     };
 
     comment.tags.forEach(function(tag) {
-      if (tag.type === 'param') {
+      if (tag.type === 'param' && tag.name) {
         entry.parameters.push({
           name: tag.name,
-          type: parseParamArguments(tag.types[0].type || []),
-          required: parseParamArguments(tag.types[0].required || []),
-          format: parseParamArguments(tag.types[0].format || []),
+          types: tag.types.length > 0 ? tag.types.join('|') : '*',
+          required: !tag.optional
         });
       } else {
         entry[tag.type] = tag.string;
@@ -56,18 +55,6 @@ function groupComments(comments) {
   });
 }
 
-function parseParamArguments(field) {
-  return field.map(function(type) {
-    let result = type;
-
-    if (type instanceof Object) {
-      result = JSON.stringify(type);
-    }
-
-    return result;
-  }).join(',');
-}
-
 function compileTemplate(sections, options) {
   var variables = {
     title: [options.title, 'REST API Documentation'].join(' '),
@@ -86,7 +73,7 @@ function copyAssets(options) {
   fse.copy(__dirname + '/dist', options.output);
 }
 
-function apiDocGenerator(options) {
+function apiDocsGenerator(options) {
   var file = readFiles(options);
   var comments = parseComments(file);
   var sections = groupComments(comments);
@@ -95,4 +82,4 @@ function apiDocGenerator(options) {
   copyAssets(options);
 }
 
-module.exports = apiDocGenerator;
+module.exports = apiDocsGenerator;
