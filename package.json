@@ -1,6 +1,6 @@
 {
   "name": "api-doc-generator",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "REST API Documentation generator",
   "repository": {
     "type": "git",
