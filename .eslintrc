@@ -3,5 +3,10 @@
   "env": {
     "browser": true,
     "node": true
+  },
+  "resolve": {
+    "extensions": [
+      ".js"
+    ]
   }
 }

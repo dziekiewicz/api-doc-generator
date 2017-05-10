@@ -1,8 +1,8 @@
 const router = {
-  get: (url, callback) => {},
-  put: (url, callback) => {},
-  post: (url, callback) => {},
-  delete: (url, callback) => {},
+  get: () => {},
+  put: () => {},
+  post: () => {},
+  delete: () => {},
 };
 
 /**
