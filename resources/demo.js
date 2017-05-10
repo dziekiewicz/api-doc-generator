@@ -1,8 +1,8 @@
 const router = {
-  get: function (url, callback) {},
-  put: function (url, callback) {},
-  post: function (url, callback) {},
-  delete: function (url, callback) {},
+  get: (url, callback) => {},
+  put: (url, callback) => {},
+  post: (url, callback) => {},
+  delete: (url, callback) => {},
 };
 
 /**
@@ -12,7 +12,7 @@ const router = {
  * @type get
  * @url /projects
  */
-router.get('/projects', function () {});
+router.get('/projects', () => {});
 
 /**
  * Create a project
@@ -23,7 +23,7 @@ router.get('/projects', function () {});
  * @param {string} name
  * @param {string =} description
  */
-router.put('/projects', function () {});
+router.put('/projects', () => {});
 
 /**
  * Update a project
@@ -34,7 +34,7 @@ router.put('/projects', function () {});
  * @param {string} name
  * @param {string =} description
  */
-router.post('/projects/:id', function () {});
+router.post('/projects/:id', () => {});
 
 /**
  * Delete a project
@@ -43,4 +43,4 @@ router.post('/projects/:id', function () {});
  * @type delete
  * @url /projects/:id
  */
-router.delete('/projects/:id', function () {});
+router.delete('/projects/:id', () => {});

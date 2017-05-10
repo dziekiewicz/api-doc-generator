@@ -79,10 +79,12 @@
     "ava": "nyc ava",
     "banner": "banner-cli dist/*.css",
     "gulp": "gulp",
-    "clean": "rimraf dist",
-    "build": "run-s clean gulp banner",
+    "clean": "run-p clean-dist clean-demo",
+    "clean-dist": "rimraf demo",
+    "clean-demo": "rimraf dist",
+    "build": "run-s gulp banner",
     "demo": "node ./src/bin -t My API Docs -i ./resources/demo.js -o ./tmp",
-    "start": "run-s demo build",
+    "start": "run-s clean demo build",
     "test": "run-s build lint ava"
   }
 }
