@@ -2,8 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const sectionToggle = [].slice.call(document.querySelectorAll('.section-toggle'));
 
   sectionToggle.forEach((node) => {
-    node.addEventListener('click', () => {
-      const parent = this.parentNode.parentNode.parentNode;
+    node.addEventListener('click', (event) => {
+      const parent = event.target.parentNode.parentNode.parentNode;
       const endpoints = parent.querySelector('.endpoints');
 
       if (endpoints.classList.contains('hidden')) {
@@ -17,8 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const endpointsHide = [].slice.call(document.querySelectorAll('.hide-description'));
 
   endpointsHide.forEach((node) => {
-    node.addEventListener('click', () => {
-      const parent = this.parentNode.parentNode.parentNode;
+    node.addEventListener('click', (event) => {
+      const parent = event.target.parentNode.parentNode.parentNode;
       const endpoints = parent.querySelector('.endpoints');
       const descriptions = parent.querySelectorAll('.description');
 
@@ -35,8 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const descriptionsShow = [].slice.call(document.querySelectorAll('.show-description'));
 
   descriptionsShow.forEach((node) => {
-    node.addEventListener('click', () => {
-      const parent = this.parentNode.parentNode.parentNode;
+    node.addEventListener('click', (event) => {
+      const parent = event.target.parentNode.parentNode.parentNode;
       const endpoints = parent.querySelector('.endpoints');
       const descriptions = parent.querySelectorAll('.description');
 
@@ -55,8 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const descriptionsToggle = [].slice.call(document.querySelectorAll('.toggle-description'));
 
   descriptionsToggle.forEach((node) => {
-    node.addEventListener('click', () => {
-      const description = this.parentNode.querySelector('.description');
+    node.addEventListener('click', (event) => {
+      const description = event.target.parentNode.querySelector('.description');
 
       if (description.classList.contains('hidden')) {
         description.classList.remove('hidden');

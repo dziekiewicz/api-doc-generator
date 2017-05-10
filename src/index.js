@@ -57,7 +57,7 @@ function compileTemplate(sections, options) {
     sections,
   };
 
-  const source = fs.readFileSync(`${__dirname}/src/template.html`).toString();
+  const source = fs.readFileSync(`${__dirname}/template.html`).toString();
   const template = handlebars.compile(source);
   const html = template(variables);
 
@@ -66,10 +66,10 @@ function compileTemplate(sections, options) {
 }
 
 function copyAssets(options) {
-  fse.copy(`${__dirname}/dist`, options.output);
+  fse.copy(`${__dirname}/../dist`, options.output);
 }
 
-function apiDocsGenerator(options) {
+export default function (options) {
   const file = readFiles(options);
   const comments = parseComments(file);
   const sections = groupComments(comments);
@@ -77,5 +77,3 @@ function apiDocsGenerator(options) {
   compileTemplate(sections, options);
   copyAssets(options);
 }
-
-module.exports = apiDocsGenerator;

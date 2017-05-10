@@ -1,7 +1,12 @@
 #!/usr/bin/env node
 
-import yargs from 'yargs';
-import apiDocGenerator from './index';
+require('babel-register')({
+  presets: ['es2015'],
+  only: /api-doc-generator/,
+});
+
+const apiDocGenerator = require('./').default;
+const yargs = require('yargs');
 
 const argv = yargs
   .usage('REST API Documentation generator\n\nUsage: $0 [options]')
