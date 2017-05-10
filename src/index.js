@@ -1,7 +1,7 @@
-var fs = require('fs');
-var fse = require('fs-extra');
-var dox = require('dox');
-var handlebars = require('handlebars');
+import fs from 'fs';
+import fse from 'fs-extra';
+import dox from 'dox';
+import handlebars from 'handlebars';
 
 function readFiles(options) {
   return fs.readFileSync(options.input, 'utf8');
@@ -12,20 +12,20 @@ function parseComments(file) {
 }
 
 function groupComments(comments) {
-  var entries = [];
+  const entries = [];
 
-  comments.forEach(function(comment) {
-    var entry = {
+  comments.forEach((comment) => {
+    const entry = {
       description: comment.description.full,
       parameters: [],
     };
 
-    comment.tags.forEach(function(tag) {
+    comment.tags.forEach((tag) => {
       if (tag.type === 'param' && tag.name) {
         entry.parameters.push({
           name: tag.name,
           types: tag.types.length > 0 ? tag.types.join('|') : '*',
-          required: !tag.optional
+          required: !tag.optional,
         });
       } else {
         entry[tag.type] = tag.string;
@@ -35,9 +35,9 @@ function groupComments(comments) {
     entries.push(entry);
   });
 
-  var sections = {};
+  const sections = {};
 
-  entries.forEach(function(entry) {
+  entries.forEach((entry) => {
     if (!{}.hasOwnProperty.call(sections, entry.section)) {
       sections[entry.section] = {
         name: entry.section,
@@ -48,35 +48,31 @@ function groupComments(comments) {
     sections[entry.section].endpoints.push(entry);
   });
 
-  return Object.keys(sections).sort(function(a, b) {
-    return a.localeCompare(b);
-  }).map(function(key) {
-    return sections[key];
-  });
+  return Object.keys(sections).sort((a, b) => a.localeCompare(b)).map(key => sections[key]);
 }
 
 function compileTemplate(sections, options) {
-  var variables = {
+  const variables = {
     title: [options.title, 'REST API Documentation'].join(' '),
-    sections: sections
+    sections,
   };
 
-  var source = fs.readFileSync(__dirname + '/src/template.html').toString();
-  var template = handlebars.compile(source);
-  var html = template(variables);
+  const source = fs.readFileSync(`${__dirname}/src/template.html`).toString();
+  const template = handlebars.compile(source);
+  const html = template(variables);
 
   fse.ensureDirSync(options.output);
-  fs.writeFileSync(options.output + '/index.html', html);
+  fs.writeFileSync(`${options.output}/index.html`, html);
 }
 
 function copyAssets(options) {
-  fse.copy(__dirname + '/dist', options.output);
+  fse.copy(`${__dirname}/dist`, options.output);
 }
 
 function apiDocsGenerator(options) {
-  var file = readFiles(options);
-  var comments = parseComments(file);
-  var sections = groupComments(comments);
+  const file = readFiles(options);
+  const comments = parseComments(file);
+  const sections = groupComments(comments);
 
   compileTemplate(sections, options);
   copyAssets(options);

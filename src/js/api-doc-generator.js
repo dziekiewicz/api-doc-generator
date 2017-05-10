@@ -1,10 +1,10 @@
-document.addEventListener("DOMContentLoaded", function() {
-  var sectionToggle = [].slice.call(document.querySelectorAll('.section-toggle'));
+document.addEventListener('DOMContentLoaded', () => {
+  const sectionToggle = [].slice.call(document.querySelectorAll('.section-toggle'));
 
-  sectionToggle.forEach(function (node) {
-    node.addEventListener('click', function () {
-      var parent = this.parentNode.parentNode.parentNode;
-      var endpoints = parent.querySelector('.endpoints');
+  sectionToggle.forEach((node) => {
+    node.addEventListener('click', () => {
+      const parent = this.parentNode.parentNode.parentNode;
+      const endpoints = parent.querySelector('.endpoints');
 
       if (endpoints.classList.contains('hidden')) {
         endpoints.classList.remove('hidden');
@@ -14,17 +14,17 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 
-  var endpointsHide = [].slice.call(document.querySelectorAll('.hide-description'));
+  const endpointsHide = [].slice.call(document.querySelectorAll('.hide-description'));
 
-  endpointsHide.forEach(function (node) {
-    node.addEventListener('click', function () {
-      var parent = this.parentNode.parentNode.parentNode;
-      var endpoints = parent.querySelector('.endpoints');
-      var descriptions = parent.querySelectorAll('.description');
+  endpointsHide.forEach((node) => {
+    node.addEventListener('click', () => {
+      const parent = this.parentNode.parentNode.parentNode;
+      const endpoints = parent.querySelector('.endpoints');
+      const descriptions = parent.querySelectorAll('.description');
 
       endpoints.classList.remove('hidden');
 
-      descriptions.forEach(function (descriptionNode) {
+      descriptions.forEach((descriptionNode) => {
         if (!descriptionNode.classList.contains('hidden')) {
           descriptionNode.classList.add('hidden');
         }
@@ -32,19 +32,19 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 
-  var descriptionsShow = [].slice.call(document.querySelectorAll('.show-description'));
+  const descriptionsShow = [].slice.call(document.querySelectorAll('.show-description'));
 
-  descriptionsShow.forEach(function (node) {
-    node.addEventListener('click', function () {
-      var parent = this.parentNode.parentNode.parentNode;
-      var endpoints = parent.querySelector('.endpoints');
-      var descriptions = parent.querySelectorAll('.description');
+  descriptionsShow.forEach((node) => {
+    node.addEventListener('click', () => {
+      const parent = this.parentNode.parentNode.parentNode;
+      const endpoints = parent.querySelector('.endpoints');
+      const descriptions = parent.querySelectorAll('.description');
 
       if (endpoints.classList.contains('hidden')) {
         endpoints.classList.remove('hidden');
       }
 
-      descriptions.forEach(function (descriptionNode) {
+      descriptions.forEach((descriptionNode) => {
         if (descriptionNode.classList.contains('hidden')) {
           descriptionNode.classList.remove('hidden');
         }
@@ -52,11 +52,11 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 
-  var descriptionsToggle = [].slice.call(document.querySelectorAll('.toggle-description'));
+  const descriptionsToggle = [].slice.call(document.querySelectorAll('.toggle-description'));
 
-  descriptionsToggle.forEach(function (node) {
-    node.addEventListener('click', function () {
-      var description = this.parentNode.querySelector('.description');
+  descriptionsToggle.forEach((node) => {
+    node.addEventListener('click', () => {
+      const description = this.parentNode.querySelector('.description');
 
       if (description.classList.contains('hidden')) {
         description.classList.remove('hidden');

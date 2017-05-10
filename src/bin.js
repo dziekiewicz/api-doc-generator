@@ -1,11 +1,9 @@
 #!/usr/bin/env node
 
-'use strict';
+import yargs from 'yargs';
+import apiDocGenerator from './index';
 
-var apiDocGenerator = require('./');
-var yargs = require('yargs');
-
-var argv = yargs
+const argv = yargs
   .usage('REST API Documentation generator\n\nUsage: $0 [options]')
   .help('help')
   .alias('help', 'h')

@@ -8,7 +8,7 @@
   },
   "main": "api-doc-generator.js",
   "bin": {
-    "api-doc-generator": "bin.js"
+    "api-doc-generator": "src/bin.js"
   },
   "maintainers": [
     {
@@ -25,10 +25,7 @@
   "files": [
     "LICENSE",
     "README.md",
-    "bin.js",
-    "index.js",
     "gulpfile.js",
-    "template.html",
     "src/*",
     "dist/*"
   ],
@@ -46,6 +43,7 @@
   "readme": "README.md",
   "dependencies": {
     "dox": "0.9.0",
+    "handlebars": "4.0.8",
     "yargs": "7.0.2",
     "normalize.css": "6.0.0",
     "milligram": "1.3.0",
@@ -55,6 +53,8 @@
     "gulp-minify": "0.0.15",
     "gulp-clean-css": "3.0.4",
     "gulp-clean": "0.3.2",
+    "gulp-babel": "6.1.2",
+    "babel-preset-es2015": "6.24.1",
     "banner-cli": "0.11.0",
     "npm-run-all": "4.0.2",
     "rimraf": "2.6.1",
@@ -68,13 +68,16 @@
     "ava": "0.19.1"
   },
   "scripts": {
-    "banner": "banner-cli dist/*.css",
-    "build": "run-s clean gulp banner",
-    "clean": "rimraf dist",
-    "gulp": "node_modules/.bin/gulp",
-    "start": "run-p build",
-    "lint": "sass-lint -c .sasslintrc src --verbose --no-exit && eslint test -c airbnb-base && editorconfig-tools check .",
+    "lint-styles": "sass-lint -c .sasslintrc src --verbose --no-exit",
+    "lint-scripts": "eslint src -c airbnb-base",
+    "lint-config": "editorconfig-tools check .",
+    "lint": "npm run lint-styles && npm run lint-scripts && npm run lint-config",
     "ava": "nyc ava",
+    "banner": "banner-cli dist/*.css",
+    "gulp": "gulp",
+    "clean": "rimraf dist",
+    "build": "run-s clean gulp banner",
+    "start": "run-p build",
     "test": "run-s build lint ava"
   }
 }

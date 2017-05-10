@@ -6,11 +6,12 @@ var concat = require('gulp-concat');
 var minify = require('gulp-minify');
 var cleanCSS = require('gulp-clean-css');
 var clean = require('gulp-clean');
+var babel = require('gulp-babel');
 
 gulp.task('sass', function () {
-  return gulp.src('./src/styles/*.sass')
+  return gulp.src(__dirname + '/src/styles/*.sass')
     .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('./tmp'));
+    .pipe(gulp.dest(__dirname + '/tmp'));
 });
 
 gulp.task('concat', ['sass'], function() {
@@ -21,26 +22,33 @@ gulp.task('concat', ['sass'], function() {
     ])
     .pipe(concat('api-doc-generator.min.css'))
     .pipe(cleanCSS())
-    .pipe(gulp.dest('dist/'));
+    .pipe(gulp.dest(__dirname + '/dist'));
 });
 
-gulp.task('clean', ['concat'], function () {
-  return gulp.src('./tmp', {read: false})
-    .pipe(clean());
+gulp.task('es6', () => {
+  return gulp.src(__dirname + '/src/js/*.js')
+    .pipe(babel({
+      presets: ['es2015']
+    }))
+    .pipe(gulp.dest(__dirname + '/tmp'));
 });
 
-gulp.task('compress', function() {
-  gulp.src('./src/js/*.js')
+gulp.task('compress', ['es6'], function() {
+  gulp.src(__dirname + '/tmp/*.js')
     .pipe(minify({
       noSource: true,
       ext:{
         min:'.min.js'
       },
     }))
-    .pipe(gulp.dest('dist/'))
+    .pipe(gulp.dest(__dirname + '/dist'))
 });
 
-gulp.task('styles', ['sass', 'concat', 'clean']);
-gulp.task('js', ['compress']);
+gulp.task('clean', ['js', 'styles'], function () {
+  return gulp.src(__dirname + '/tmp', {read: false})
+    .pipe(clean());
+});
 
-gulp.task('default', ['styles', 'js']);
+gulp.task('styles', ['sass', 'concat']);
+gulp.task('js', ['es6', 'compress']);
+gulp.task('default', ['styles', 'js', 'clean']);
