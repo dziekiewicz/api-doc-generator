@@ -59,6 +59,7 @@
     "gulp-clean-css": "3.0.4",
     "gulp-clean": "0.3.2",
     "gulp-babel": "6.1.2",
+    "gulp-replace-task": "0.11.0",
     "banner-cli": "0.11.0",
     "npm-run-all": "4.0.2",
     "rimraf": "2.6.1",
@@ -80,7 +81,8 @@
     "gulp": "gulp",
     "clean": "rimraf dist",
     "build": "run-s clean gulp banner",
-    "start": "run-p build",
+    "demo": "node ./src/bin -t My API Docs -i ./resources/demo.js -o ./tmp",
+    "start": "run-s demo build",
     "test": "run-s build lint ava"
   }
 }
