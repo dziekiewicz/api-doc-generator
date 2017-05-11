@@ -6,6 +6,7 @@ API Docs Generator
 [![Dependencies Status](https://david-dm.org/dzekevis/api-doc-generator.svg)](https://david-dm.org/dzekevis/api-doc-generator)
 [![Download Status](https://img.shields.io/npm/dt/api-doc-generator.svg)](https://www.npmjs.com/package/api-doc-generator)
 [![Version Status](https://badge.fury.io/js/api-doc-generator.svg)](https://www.npmjs.com/package/api-doc-generator)
+[![Gitter Chat](https://img.shields.io/badge/gitter-join_the_chat-4cc61e.svg)](https://gitter.im/dzekevis/api-doc-generator)
 
 A simple wrapper for generating REST API documentation based on <a href="https://github.com/tj/dox">Dox parser</a> and <a href="https://github.com/milligram/milligram">Milligram CSS framework</a>. Its goal is to make your JSDoc comments as human-friendly as possible. It provides a simple syntax and displays colorized documentation.
 
