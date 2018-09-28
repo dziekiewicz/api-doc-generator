@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   descriptionsToggle.forEach((node) => {
     node.addEventListener('click', (event) => {
-      const description = event.target.parentNode.querySelector('.description');
+      const description = event.target.parentNode.parentNode.querySelector('.description');
 
       if (description.classList.contains('hidden')) {
         description.classList.remove('hidden');
