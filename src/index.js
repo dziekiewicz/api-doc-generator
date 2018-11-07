@@ -3,12 +3,22 @@ import fse from 'fs-extra';
 import dox from 'dox';
 import handlebars from 'handlebars';
 
-function readFiles(options) {
-  return fs.readFileSync(options.input, 'utf8');
-}
-
-function parseComments(file) {
-  return dox.parseComments(file);
+function parseComments(options) {
+  var isDirectory = fs.lstatSync(options.input).isDirectory();
+  if(!isDirectory){
+    let file = fs.readFileSync(options.input, 'utf8');
+    var comments = dox.parseComments(file);
+  } else {
+    var files = [];
+    var comments = [];
+    walkSync(options.input, files);
+    files.map(file => {
+      let fileContent = fs.readFileSync(file, 'utf8');
+      let fileComments = dox.parseComments(fileContent);
+      comments = fileComments.concat(comments)
+    })
+  }
+  return comments;
 }
 
 function groupComments(comments) {
@@ -69,9 +79,23 @@ function copyAssets(options) {
   fse.copy(`${__dirname}/../dist`, options.output);
 }
 
+var walkSync = function(dir, filelist) {
+  var fs = fs || require('fs'),
+  files = fs.readdirSync(dir);
+  filelist = filelist || [];
+  files.forEach(function(file) {
+    if (fs.statSync(dir + '/' + file).isDirectory()) {
+      filelist = walkSync(dir + file + '/', filelist);
+    }
+    else {
+      filelist.push(dir + '/' + file);
+    }
+  });
+  return filelist;
+};
+
 export default function (options) {
-  const file = readFiles(options);
-  const comments = parseComments(file);
+  const comments = parseComments(options);
   const sections = groupComments(comments);
 
   compileTemplate(sections, options);
