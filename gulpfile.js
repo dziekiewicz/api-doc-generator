@@ -11,48 +11,48 @@ gulp.task('styles:compile', () => gulp.src(`${__dirname}/src/styles/*.sass`)
   .pipe(sass().on('error', sass.logError))
   .pipe(gulp.dest(`${__dirname}/tmp`)));
 
-gulp.task('styles:compress', ['styles:compile'], () => gulp.src([
+gulp.task('styles:compress', gulp.series(gulp.parallel('styles:compile'), () => gulp.src([
   `${__dirname}/tmp/api-doc-generator.css`,
   `${__dirname}/node_modules/normalize.css/normalize.css`,
   `${__dirname}/node_modules/milligram/dist/milligram.css`,
 ])
   .pipe(concat('api-doc-generator.min.css'))
   .pipe(cleanCSS())
-  .pipe(gulp.dest(`${__dirname}/dist`)));
+  .pipe(gulp.dest(`${__dirname}/dist`))));
 
 gulp.task('scripts:compile', () => gulp.src(`${__dirname}/src/js/*.js`)
   .pipe(babel({
-    presets: ['es2015'],
+    presets: ['@babel/preset-env'],
   }))
   .pipe(gulp.dest(`${__dirname}/tmp`)));
 
-gulp.task('scripts:compress', ['scripts:compile'], () => gulp.src(`${__dirname}/tmp/api-doc-generator.js`)
+gulp.task('scripts:compress', gulp.series(gulp.parallel('scripts:compile'), () => gulp.src(`${__dirname}/tmp/api-doc-generator.js`)
   .pipe(minify({
     noSource: true,
     ext: {
       min: '.min.js',
     },
   }))
-  .pipe(gulp.dest(`${__dirname}/dist`)));
+  .pipe(gulp.dest(`${__dirname}/dist`))));
 
-gulp.task('demo', () => gulp.src(`${__dirname}/tmp/index.html`)
+gulp.task('demo', () => gulp.src(`${__dirname}/tmp/index.html`, { allowEmpty: true })
   .pipe(replace({
     patterns: [
       {
         match: /api-doc-generator.min/g,
-        replacement: '../dist/api-doc-generator.min',
+        replacement: 'dist/api-doc-generator.min',
       },
     ],
   }))
   .pipe(gulp.dest(`${__dirname}/demo`)));
 
-gulp.task('styles', ['styles:compile', 'styles:compress']);
-gulp.task('scripts', ['scripts:compile', 'scripts:compress']);
-gulp.task('dist', ['styles', 'scripts']);
+gulp.task('styles', gulp.series('styles:compress'));
+gulp.task('scripts', gulp.series('scripts:compress'));
+gulp.task('dist', gulp.parallel('styles', 'scripts'));
 
-gulp.task('clean', ['dist', 'demo'], () => gulp.src(`${__dirname}/tmp`, {
+gulp.task('clean', () => gulp.src(`${__dirname}/tmp`, {
   read: false,
 })
   .pipe(clean()));
 
-gulp.task('default', ['dist', 'demo', 'clean']);
+gulp.task('default', gulp.series('dist', 'demo', 'clean'));
